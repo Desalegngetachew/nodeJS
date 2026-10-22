@@ -1,0 +1,5 @@
+hello this is file read from the txt.
+this is file read from the txt.
+Horse this is file read from the txt.
+Dog this is file read from the txt.
+Cat this is file read from the txt.
