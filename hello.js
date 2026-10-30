@@ -21,12 +21,18 @@ dotenv.config();
 const PORT = process.env.PORT || 7000;
 const mongoosURL = process.env.MONGO_URL;
 
-mongoose.connect(mongoosURL).then(() => {
-  console.log("Database is connected successfully.");
+mongoose.connect(mongoosURL)
+  .then(() => {
+    console.log("Database connected successfully.");
+  })
+  .catch((error) => {
+    console.log("Database connection failed:", error.message);
+  });
 
-}).catch((error) => {
-  console.log(error);
-})
+// Test homepage
+app.get("/", (req, res) => {
+  res.send("Server is working!");
+});
 
 // Serve uploaded images
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
@@ -53,8 +59,8 @@ app.post("/upload", upload.single("image"), (req, res) => {
       `);
 });
 
-app.listen(3000, () => {
-  console.log("Open http://localhost:3000");
+app.listen(PORT, () => {
+  console.log(`Open http://localhost: ${PORT}`);
 });
 
 app.use("/api/user", route);
