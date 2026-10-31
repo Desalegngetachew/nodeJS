@@ -4,30 +4,21 @@ import multer from "multer";
 import path from "path";
 import dotenv from 'dotenv';
 import bodyParser from 'body-parser';
-import mongoose from 'mongoose';
 import { error } from "console";
 import route from "./routes/userRoute.js";
-
+import connectDB from "./config/db.js";
 import { fileURLToPath } from "node:url";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-
 const app = express();
 
 app.use(bodyParser.json());
 dotenv.config();
+connectDB();
 
 const PORT = process.env.PORT || 7000;
-const mongoosURL = process.env.MONGO_URL;
 
-mongoose.connect(mongoosURL)
-  .then(() => {
-    console.log("Database connected successfully.");
-  })
-  .catch((error) => {
-    console.log("Database connection failed:", error.message);
-  });
 
 // Test homepage
 app.get("/", (req, res) => {
